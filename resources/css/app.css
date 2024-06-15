@@ -1,0 +1,22 @@
+/** ROTATE BACKGROUND/ITEM GRADIENT
+    body {
+    background: linear-gradient(180deg, #000, #f5f5dc);
+    background-size: 200% 200%;
+    animation: gradientMove 5s ease infinite, gradientRotate 1s ease;
+    }
+
+    @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+    }
+
+    @keyframes gradientRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+    }
+*/
