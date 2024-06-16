@@ -1,4 +1,12 @@
-// Example for validating an email input
+/**
+ * validating an email input
+ *
+ * @param   email       email value
+ * @param   emailInput  email input DOM element
+ * @param   emailSpan   email span DOM element
+ *
+ * @return  {boolean}              return true if email is valid
+ */
 function validateEmail(email, emailInput, emailSpan = null) {
     const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -11,6 +19,7 @@ function validateEmail(email, emailInput, emailSpan = null) {
             emailSpan.classList.add('text-success');
             emailSpan.textContent = 'Email is valid.';
         }
+        return true;
     } else {
         emailInput.classList.remove('is-valid');
         emailInput.classList.add('is-invalid');
@@ -20,10 +29,20 @@ function validateEmail(email, emailInput, emailSpan = null) {
             emailSpan.classList.add('text-danger');
             emailSpan.textContent = 'Please enter a valid email address.';
         }
+
+        return false;
     }
 }
 
-// Example for validating a password input
+/**
+ * validating a password input
+ *
+ * @param  password       password value
+ * @param  passwordInput  DOM element of password input
+ * @param  passwordSpan   DOM element of password span
+ *
+ * @return  {boolean}                 return true if password is valid
+ */
 function validatePassword(password, passwordInput, passwordSpan = null) {
     // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -43,8 +62,6 @@ function validatePassword(password, passwordInput, passwordSpan = null) {
             passwordInput.classList.remove('is-valid');
             passwordInput.classList.add('is-invalid');
 
-            console.log(filterObj[rule].message);
-
             if (passwordSpan != null) {
                 passwordSpan.classList.remove('text-success');
                 passwordSpan.classList.add('text-danger');
@@ -62,18 +79,27 @@ function validatePassword(password, passwordInput, passwordSpan = null) {
             passwordSpan.classList.add('text-success');
             passwordSpan.textContent = 'Password is valid.';
         }
+
+        return true;
     }
 
+    return false;
 }
 
 // add multi event listener to an element split by space
 /**
  * add multi event listener to an element split by space
  *
- * @param   {[type]}  el  element
- * @param   {[type]}  s   event or events name split by space
- * @param   {[type]}  fn  function to be executed
+ * @param  el  element
+ * @param  s   event or events name split by space
+ * @param  fn  function to be executed
  */
 function addListenerMulti(el, s, fn) {
     s.split(' ').forEach(e => el.addEventListener(e, fn, false));
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
