@@ -1,0 +1,11 @@
+body {
+    background: linear-gradient(319deg, #5f5, #f5f5dc); /* Initial gradient */
+    background-size: 200% 200%; /* Double the size for the animation */
+    animation: gradientMove 5s ease-in-out infinite; /* Animation settings */
+}
+
+@keyframes gradientMove {
+    0% { background-position: 50% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 50% 50%; }
+}
