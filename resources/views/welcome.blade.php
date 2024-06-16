@@ -1,20 +1,11 @@
 @include('layouts.guest_nav_bar')
 
-<style>
-    body {
-    background: linear-gradient(319deg, #5f5, #f5f5dc); /* Initial gradient */
-    background-size: 200% 200%; /* Double the size for the animation */
-    animation: gradientMove 5s ease-in-out infinite; /* Animation settings */
-    }
-
-    @keyframes gradientMove {
-    0% { background-position: 50% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 50% 50%; }
-    }
-</style>
+<head>
+    <link href="{{ asset('css/welcomeCss.css') }}" rel="stylesheet">
+</head>
 <body>
     <script src="{{ asset('js/functionUtils.js') }}"></script>
+    <script src="{{ asset('js/fetchApi.js') }}"></script>
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="display-4">
@@ -44,8 +35,8 @@
                     <span id='passwordSpan' class='mx-2 fw-bold'></span>
                 </div>
                 <div class='col-lg-4 ml-auto my-2 py-2' style="justify-self:center">
-                    <button class="btn btn-primary fw-bold text-uppercase" style="float: right;">Entrar</button>
-                    <button class="btn btn-secondary fw-bold text-uppercase" style="float: left">Cadastrar</button>
+                    <button class="btn btn-primary fw-bold text-uppercase" id='loginButton' style="float: right;">Entrar</button>
+                    <button class="btn btn-secondary fw-bold text-uppercase" id='registerButton' style="float: left">Cadastrar</button>
                 </div>
             </div>
         </div>
@@ -62,6 +53,30 @@
         const password = document.getElementById('password');
         const passwordSpan = document.getElementById('passwordSpan');
         addListenerMulti(password, 'input complete blur change keyUp paste copy cut', () => validatePassword(password.value, password, passwordSpan));
+
+        const loginButton = document.getElementById('loginButton');
+        loginButton.addEventListener('click', () => {
+            if(validateEmail(email.value, email, emailSpan) && validatePassword(password.value, password, passwordSpan)) {
+                const data = {
+                    email: email.value,
+                    password: password.value
+                };
+
+                password.value = '';
+
+                doPost(
+                    '/login',
+                    data,
+                    (response) => {
+                        if (response.success == false) {
+                            alert(response.message);
+                        }
+
+                        console.log('logged');
+                    }
+                );
+            }
+        });
     });
 </script>
 
